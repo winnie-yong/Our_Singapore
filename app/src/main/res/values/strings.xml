@@ -24,6 +24,7 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="btn5Stars">Show all island with 5 stars</string>
+    <string name="insert">Insert Island</string>
 
     <string-array name="spnYear">
         <item>Select a area</item>
