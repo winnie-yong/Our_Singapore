@@ -16,15 +16,11 @@ import java.util.ArrayList;
 public class SecondActivity extends AppCompatActivity {
 
     ListView lv;
-    ArrayList<Song> songList;
-    //ArrayAdapter<Song> adapter;
+    ArrayList<Island> islandList;
     CustomAdapter adapter;
-    String moduleCode;
     int requestCode = 9;
     Button btn5Stars;
-    ArrayList<String> spnYear;
-    Spinner spinner;
-    ArrayAdapter<String> spnAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +30,19 @@ public class SecondActivity extends AppCompatActivity {
 
         lv = (ListView) this.findViewById(R.id.lv);
         btn5Stars = (Button) this.findViewById(R.id.btnShow5Stars);
-        spinner = findViewById(R.id.spnYear);
 
         DBHelper dbh = new DBHelper(this);
-        songList = dbh.getAllSongs();
-        spnYear = dbh.getYears();
+        islandList = dbh.getAllIsland();
         dbh.close();
 
-        //adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, songList);
-        //lv.setAdapter(adapter);
-        adapter = new CustomAdapter(this, R.layout.row, songList);
+        adapter = new CustomAdapter(this, R.layout.row, islandList);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
-                i.putExtra("song", songList.get(position));
+                i.putExtra("island", islandList.get(position));
                 startActivityForResult(i, requestCode);
             }
         });
@@ -59,27 +51,9 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(SecondActivity.this);
-                songList.clear();
-                songList.addAll(dbh.getAllSongsByStars(5));
+                islandList.clear();
+                islandList.addAll(dbh.getAllIslandByStar(5));
                 adapter.notifyDataSetChanged();
-            }
-        });
-
-        spnAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,spnYear);
-        spinner.setAdapter(spnAdapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DBHelper dbh = new DBHelper(SecondActivity.this);
-                songList.clear();
-                songList.addAll(dbh.getAllSongsByYear(Integer.valueOf(spnYear.get(position))));
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
@@ -88,8 +62,8 @@ public class SecondActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == this.requestCode && resultCode == RESULT_OK){
             DBHelper dbh = new DBHelper(this);
-            songList.clear();
-            songList.addAll(dbh.getAllSongs());
+            islandList.clear();
+            islandList.addAll(dbh.getAllIsland());
             dbh.close();
             adapter.notifyDataSetChanged();
         }

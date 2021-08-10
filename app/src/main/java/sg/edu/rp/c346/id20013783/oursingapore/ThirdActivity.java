@@ -35,21 +35,21 @@ public class ThirdActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.editratingBar);
 
         Intent i = getIntent();
-        final Song currentSong = (Song) i.getSerializableExtra("song");
+        final Island currentIsland = (Island) i.getSerializableExtra("island");
 
         etID.setEnabled(false);
-        etID.setText(currentSong.getId()+"");
-        etTitle.setText(currentSong.getTitle());
-        etDescription.setText(currentSong.getSingers());
-        etArea.setText(currentSong.getYearReleased()+"");
-        ratingBar.setRating(currentSong.getStars());
+        etID.setText(currentIsland.getId()+"");
+        etTitle.setText(currentIsland.getTitle());
+        etDescription.setText(currentIsland.getDescription());
+        etArea.setText(currentIsland.getArea()+"");
+        ratingBar.setRating(currentIsland.getStars());
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(ThirdActivity.this);
-                currentSong.setTitle(etTitle.getText().toString().trim());
-                currentSong.setSingers(etDescription.getText().toString().trim());
+                currentIsland.setTitle(etTitle.getText().toString().trim());
+                currentIsland.setDescription(etDescription.getText().toString().trim());
                 int area = 0;
                 try {
                     area = Integer.valueOf(etArea.getText().toString().trim());
@@ -57,10 +57,10 @@ public class ThirdActivity extends AppCompatActivity {
                     Toast.makeText(ThirdActivity.this, "Invalid area", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                currentSong.setYearReleased(area);
+                currentIsland.setArea(area);
 
-                currentSong.setStars((int)ratingBar.getRating());
-                int result = dbh.updateSong(currentSong);
+                currentIsland.setStars((int)ratingBar.getRating());
+                int result = dbh.updateSong(currentIsland);
                 if (result>0){
                     Toast.makeText(ThirdActivity.this, "Island updated", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent();
@@ -79,7 +79,7 @@ public class ThirdActivity extends AppCompatActivity {
 
                 AlertDialog.Builder myBuilder = new AlertDialog.Builder(ThirdActivity.this);
                 myBuilder.setTitle("Danger");
-                myBuilder.setMessage("Are you sure you want to delete the island\n" + currentSong.getTitle());
+                myBuilder.setMessage("Are you sure you want to delete the island\n" + currentIsland.getTitle());
                 myBuilder.setCancelable(false);
 
                 //Configure the positive button
@@ -87,7 +87,7 @@ public class ThirdActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DBHelper dbh = new DBHelper(ThirdActivity.this);
-                        int result = dbh.deleteSong(currentSong.getId());
+                        int result = dbh.deleteSong(currentIsland.getId());
                         if (result>0) {
                             Toast.makeText(ThirdActivity.this, "Island deleted", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent();
@@ -110,7 +110,7 @@ public class ThirdActivity extends AppCompatActivity {
 
                 AlertDialog.Builder myBuilder = new AlertDialog.Builder(ThirdActivity.this);
                 myBuilder.setTitle("Danger");
-                myBuilder.setMessage("Are you sure you want to delete the island\n" + currentSong.getTitle());
+                myBuilder.setMessage("Are you sure you want to delete the island\n" + currentIsland.getTitle());
                 myBuilder.setCancelable(false);
 
                 //Configure the positive button
@@ -118,7 +118,7 @@ public class ThirdActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DBHelper dbh = new DBHelper(ThirdActivity.this);
-                        int result = dbh.deleteSong(currentSong.getId());
+                        int result = dbh.deleteSong(currentIsland.getId());
                         if (result>0){
                             Toast.makeText(ThirdActivity.this, "Island deleted", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent();
@@ -132,7 +132,6 @@ public class ThirdActivity extends AppCompatActivity {
                 myBuilder.setNeutralButton("CANCEL",null);
                 AlertDialog myDialog = myBuilder.create();
                 myDialog.show();
-                finish();
             }
         });
 

@@ -2,34 +2,32 @@ package sg.edu.rp.c346.id20013783.oursingapore;
 
 import java.io.Serializable;
 
-public class Song implements Serializable {
-
+public class Island implements Serializable {
     private int id;
     private String title;
-    private String singers;
-    private int yearReleased;
+    private String description;
+    private int area;
     private int stars;
 
-    public Song(String title, String singers, int yearReleased, int stars) {
+    public Island(String title, String description, int area, int stars) {
         this.title = title;
-        this.singers = singers;
-        this.yearReleased = yearReleased;
+        this.description = description;
+        this.area = area;
         this.stars = stars;
     }
 
-    public Song(int id, String title, String singers, int yearReleased, int stars) {
+    public Island(int id, String title, String description, int area, int stars) {
         this.id = id;
         this.title = title;
-        this.singers = singers;
-        this.yearReleased = yearReleased;
+        this.description = description;
+        this.area = area;
         this.stars = stars;
     }
-
     public int getId() {
         return id;
     }
 
-    public Song setId(int id) {
+    public Island setId(int id) {
         this.id = id;
         return this;
     }
@@ -38,26 +36,26 @@ public class Song implements Serializable {
         return title;
     }
 
-    public Song setTitle(String title) {
+    public Island setTitle(String title) {
         this.title = title;
         return this;
     }
 
-    public String getSingers() {
-        return singers;
+    public String getDescription() {
+        return description;
     }
 
-    public Song setSingers(String singers) {
-        this.singers = singers;
+    public Island setDescription(String description) {
+        this.description = description;
         return this;
     }
 
-    public int getYearReleased() {
-        return yearReleased;
+    public int getArea() {
+        return area;
     }
 
-    public Song setYearReleased(int yearReleased) {
-        this.yearReleased = yearReleased;
+    public Island setArea(int area) {
+        this.area = area;
         return this;
     }
 
@@ -65,7 +63,7 @@ public class Song implements Serializable {
         return stars;
     }
 
-    public Song setStars(int stars) {
+    public Island setStars(int stars) {
         this.stars = stars;
         return this;
     }
@@ -90,10 +88,9 @@ public class Song implements Serializable {
         return starsString;
 
     }
-    public String theYear(){
-        String year = "";
-        year = String.valueOf(yearReleased);
-        return year;
+    public String thearea(){
+        String area = "";
+        area = String.valueOf(area);
+        return area;
     }
 }
-

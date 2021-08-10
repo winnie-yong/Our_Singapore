@@ -14,14 +14,13 @@ import java.util.ArrayList;
 public class CustomAdapter extends ArrayAdapter {
     Context parent_context;
     int layout_id;
-    ArrayList<Song> versionList;
-
-    public CustomAdapter(Context context, int resource,ArrayList<Song> objects){
+    ArrayList<Island> islandList;
+    public CustomAdapter(Context context, int resource,ArrayList<Island> objects){
         super(context, resource,objects);
 
         parent_context = context;
         layout_id = resource;
-        versionList = objects;
+        islandList = objects;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -34,31 +33,22 @@ public class CustomAdapter extends ArrayAdapter {
 
         // Obtain the UI components and do the necessary binding
         TextView tvTitle = rowView.findViewById(R.id.textViewTitle);
-        TextView tvYear = rowView.findViewById(R.id.textViewYear);
-        TextView tvSinger = rowView.findViewById(R.id.textViewSinger);
+        TextView tvArea = rowView.findViewById(R.id.textViewArea);
+        TextView tvDescription = rowView.findViewById(R.id.textViewDescription);
 
-        ImageView ivNew = rowView.findViewById(R.id.imageViewNew);
         RatingBar ratingBar = rowView.findViewById(R.id.ratingBar);
-
         // Obtain the Android Version information based on the position
-        Song currentVersion = versionList.get(position);
+         Island currentIsland = islandList.get(position);
 
         // Set values to the TextView to display the corresponding information
-        tvTitle.setText(currentVersion.getTitle());
-        tvYear.setText(currentVersion.theYear());
-        tvSinger.setText(currentVersion.getSingers());
-        ivNew.setImageResource(R.drawable.newimg);
-        ratingBar.setRating(currentVersion.getStars());
-
-        if(currentVersion.getYearReleased() >= 2019){
-            ivNew.setVisibility(View.VISIBLE);
-        }
-        else{
-            ivNew.setVisibility(View.INVISIBLE);
-        }
+        tvTitle.setText(currentIsland.getTitle());
+        tvArea.setText(currentIsland.thearea());
+        tvDescription.setText(currentIsland.getDescription());
+        ratingBar.setRating(currentIsland.getStars());
 
         return rowView;
     }
 
 }
+
 

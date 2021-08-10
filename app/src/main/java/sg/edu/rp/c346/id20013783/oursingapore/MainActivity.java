@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
                 DBHelper dbh = new DBHelper(MainActivity.this);
                 int rating = (int)ratingbar.getRating();
-                long result = dbh.insertSong(title, description, area, rating);
+                long result = dbh.insertIsland(title, description, area, rating);
                 dbh.close();
 
                 if (result != -1) {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
 
     }
 
